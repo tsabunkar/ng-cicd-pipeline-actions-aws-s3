@@ -34,11 +34,14 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Installing all the npm dependencies
+      - name: Installing all the npm dependencies of specific versions using ci
         run: npm ci
 
       - name: Checking for Linting..
         run: npm run lint
+
+      - name: Checking for build prod and AOT..
+        run: npm run build
 
         env:
           CI: true
