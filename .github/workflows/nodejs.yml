@@ -15,18 +15,24 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.16.1]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Print a greeting
+        env:
+          MY_VAR: Welcome to my C.I process
+          FIRST_NAME: Tejas
+          MIDDLE_NAME: Shailesh
+          LAST_NAME: Sabunkar
+        run: |
+          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
       - name: Use Node.js ${{ matrix.node-version }} to Install Dependencies using npm ci
-        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
+        run: npm ci
       - name: Checking linting of project..
-      - run: ng lint
+        run: ng lint
       - name: Checking build of project ..
-      - run: ng build --prod --aot
+        run: ng build --prod --aot
         env:
           CI: true
