@@ -18,8 +18,16 @@ jobs:
         node-version: [12.x]
 
     steps:
+      - uses: actions/checkout@v1
+
       - name: Print a greeting
         run: echo "Starting C.I Process".
+
+      - name: Node $
+        uses: actions/setup-node@v1
+        with:
+          node-version: $
+
       - name: Installing all the npm dependencies
         run: npm ci
         env:
