@@ -27,6 +27,7 @@ jobs:
         run: |
           echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
       - name: Use Node.js ${{ matrix.node-version }} to Install Dependencies using npm ci
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
         run: npm ci
