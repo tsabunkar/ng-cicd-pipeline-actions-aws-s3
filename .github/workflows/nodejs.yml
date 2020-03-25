@@ -36,5 +36,9 @@ jobs:
 
       - name: Installing all the npm dependencies
         run: npm ci
+
+      - name: Checking for Linting..
+        run: npm run lint
+
         env:
           CI: true
