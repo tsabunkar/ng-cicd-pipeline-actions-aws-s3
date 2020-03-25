@@ -20,7 +20,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-
       - name: Print a greeting
         env:
           MY_VAR: Welcome to my C.I process
@@ -30,19 +29,17 @@ jobs:
         run: |
           echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
 
-
       - name: Cache node modules
         uses: actions/cache@v1
-          env:
-            cache-name: cache-node-modules
-          with:
-            path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-            restore-keys: |
-              ${{ runner.os }}-build-${{ env.cache-name }}-
-              ${{ runner.os }}-build-
-              ${{ runner.os }}-
-
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: Node version ${{ matrix.node-version }}
         uses: actions/setup-node@v1
