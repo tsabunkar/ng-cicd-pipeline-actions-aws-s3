@@ -23,10 +23,10 @@ jobs:
       - name: Print a greeting
         run: echo "Starting C.I Process".
 
-      - name: Node $
+      - name: Node version
         uses: actions/setup-node@v1
         with:
-          node-version: $
+          node-version: ${{ matrix.node }}
 
       - name: Installing all the npm dependencies
         run: npm ci
