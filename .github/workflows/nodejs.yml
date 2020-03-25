@@ -19,6 +19,8 @@ jobs:
 
     steps:
       - name: Print a greeting
-        run: echo $MY_VAR.
+        run: echo "Starting C.I Process".
+      - name: Installing all the npm dependencies
+        run: npm ci
         env:
           CI: true
