@@ -29,10 +29,10 @@ jobs:
         run: |
           echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
 
-      - name: Node version
+      - name: Node version ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Installing all the npm dependencies of specific versions using ci
         run: npm ci
