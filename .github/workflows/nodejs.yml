@@ -18,11 +18,13 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - name: Use Node.js ${{ matrix.node-version }} to Install Dependencies
-        run: npm install
-      - name: Checking linting of project..
-        run: npm run lint
-      - name: Checking build of project ..
-        run: npm run build
+      - name: Print a greeting
+        env:
+          MY_VAR: Welcome to my C.I process
+          FIRST_NAME: Tejas
+          MIDDLE_NAME: Shailesh
+          LAST_NAME: Sabunkar
+        run: |
+          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
         env:
           CI: true
