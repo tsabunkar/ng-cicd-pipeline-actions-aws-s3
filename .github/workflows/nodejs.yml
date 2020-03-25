@@ -34,10 +34,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Removing previous dist & Installing all npm dependencies of specific versions using ci
-        run: |
-          npm run clean
-          npm ci
+      - name: Installing all npm dependencies of specific versions using ci
+        run: npm ci
 
       - name: Checking for Linting..
         run: npm run lint
