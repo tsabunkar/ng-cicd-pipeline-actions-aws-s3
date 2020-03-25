@@ -29,8 +29,8 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }} to Install Dependencies using npm ci
         run: npm ci
       - name: Checking linting of project..
-        run: ng lint
+        run: npm run lint
       - name: Checking build of project ..
-        run: ng build --prod --aot
+        run: npm run build
         env:
           CI: true
