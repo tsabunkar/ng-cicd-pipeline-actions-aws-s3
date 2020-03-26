@@ -1,4 +1,4 @@
-# Tejas Sabunkar Portfolio
+# Angular CI CD pipeline with Github Actions and AWS S3
 
 [![build status](https://github.com/coryrylan/angular-github-actions/workflows/Build/badge.svg)](https://github.com/tsabunkar/ng-portfolio/actions)
 
@@ -41,6 +41,90 @@ Make code reviews, branch management, and issue triaging work the way you want.
 Slack is a collaboration hub that can replace email to help you and your team work together seamlessly.
 
 It’s designed to support the way people naturally work together, so you can collaborate with people online as efficiently as you do face-to-face.
+
+### Add a Workflows File to Your Source Repository
+
+Github Actions to build your workflows yml files.
+
+Add a `*.yml` file to your source code repository to tell Github Actions.
+
+[GitHub Actions](https://github.com/features/actions)
+
+▾ nodejs.yml
+
+```bash
+name: CI for Angular
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env: # environment variables to all the jobs
+  KEY_1: value1
+  KEY_2: value2
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        node-version: [12.16.1]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Print a greeting
+        env: # environment variables to only this steps
+          MY_VAR: Welcome to my C.I process
+          FIRST_NAME: Tejas
+          MIDDLE_NAME: Shailesh
+          LAST_NAME: Sabunkar
+        run: |
+          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Node version ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installing all npm dependencies of specific versions using ci
+        run: npm ci
+
+      - name: Checking for Linting..
+        run: npm run lint
+
+      - name: Checking for build prod and AOT..
+        run: npm run build
+
+      - name: Let me check your test cases..
+        run: npm run test-headless-chrome
+
+      - name: Remove previous instance of junks from s3 buckets
+        run: aws s3 rm --recursive s3://tsabunkar-portfolio/
+
+      - name: Deploy to AWS S3 bucket
+        run: aws s3 cp --recursive dist/portfolio/ s3://tsabunkar-portfolio/ --acl public-read
+
+    env: # environment variables to all the steps
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+```
 
 ---
 
