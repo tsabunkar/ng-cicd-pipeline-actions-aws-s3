@@ -4,6 +4,48 @@
 
 ---
 
+<img src='https://github.com/byangular/angular-github-actions-s3-deploy/raw/images/architecture.png' border='0' alt='architecture' />
+
+Implementing automatic distribution of [AWS](https://aws.amazon.com/ko/) product [S3](https://aws.amazon.com/ko/s3/) through [GitHub Actions](https://github.com/features/actions) operation.
+
+Notifications over [Slack](https://slack.com/intl/en-kr/) using through [GitHub Actions](https://github.com/features/actions)
+
+> Create smart aws diagrams [Cloudcraft](https://cloudcraft.co/)
+
+<br />
+
+## What is AWS ?
+
+Whether you're looking for compute power, database storage, content delivery, or other features with services operated by Amazon,
+
+AWS has services to help you build sophisticated applications with increased flexibility, scalability, and reliability.
+
+## What is S3 ?
+
+Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
+
+This means customers of all sizes and industries can use it to store and protect any amount of data for a range of use cases, such as websites, mobile applications, backup and restore, archive, enterprise applications, IoT devices, and big data analytics.
+
+▾ Amazon S3 works
+
+<img src='https://github.com/byangular/angular-github-actions-s3-deploy/raw/images/s3-works.png' border='0' alt='s3-works' />
+
+## What is GitHub Actions ?
+
+GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub.
+
+Make code reviews, branch management, and issue triaging work the way you want.
+
+## What is Slack ?
+
+Slack is a collaboration hub that can replace email to help you and your team work together seamlessly.
+
+It’s designed to support the way people naturally work together, so you can collaborate with people online as efficiently as you do face-to-face.
+
+---
+
+---
+
 # Technologies to be used
 
 - Angular
@@ -49,32 +91,17 @@
 
 # continuous deployment
 
-## AWS CLI Configuration
-
-- Install aws cli locally in ur linux :
-  - \$ cd ~/tejas/other-apps/aws
-  - \$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  - \$ unzip awscliv2.zip
-  - \$ cd aws
-  - \$ sudo ./install
-  - \$ aws --version
-  - \$ which aws
-- To check for aws latest update and update
-  - \$ cd ~/tejas/other-apps/aws
-  - \$ sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update (Update aws cli versio)
-- To configure for aws for specific user/developer
-  - Services > Security, Identity, & Compliance > IAM
-  - Users
-  - Tejas-Dev (Who current have admin access)
-  - Security Credentials
-  - Access Key (tab), If you have not downloaded Secrete access key in your local delete previous entry and create new accessKeys.csv file store in your local.
-  - \$ aws configure
-    - (enter your access key ID and Secret access key)
-    - Default region name: us-east-1 [US East (N. Virginia)]
-    - Default output format: json
-  - \$ aws s3 ls
-
 ## Deploying to AWS S3 bucket when event is triggered in GitHub Actions
 
 - Add new workflow aws.yml
 - Github project > Settings > Secrets (tab) > add all AWS Secrets mentioned in aws.yml file like - AWS_S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, etc
+- Create a aws s3 bucket :
+  - Services > S3 > Create-bucket > tsabunkar-portfolio >
+  - Disable - block public access > Create bucket
+  - Permissions > Bucket Policy > (Add the json schema)
+  - Properties > Static Web hosting > Use this bucket to host a website : index.html
+- Onces bucket is created add the bucket name in your nodejs.yml file, syntax: s3://bucket-name/ (ex- s3://tsabunkar-portfolio/)
+
+- NOTE: You can create AWS S3 bucket and but cannot configure this bucket with webhost services, making public policy as- public, Disabling- block public access. For this you need to create the aws s3 bucket manually.
+
+---

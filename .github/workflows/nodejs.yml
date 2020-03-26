@@ -58,8 +58,10 @@ jobs:
       - name: Let me check your test cases..
         run: npm run test-headless-chrome
 
-      - name: Deploy to AWS S3 bucket
+      - name: Remove previous instance of junks from s3 buckets & Deploy to AWS S3 bucket
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: aws s3 cp dist  s3://tsabunkar-portfolio/ --recursive
+        run: | 
+        aws s3 rm --recursive s3://tsabunkar-portfolio/
+        aws s3 cp --recursive dist/portfolio/ s3://tsabunkar-portfolio/ --acl public-read
