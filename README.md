@@ -14,6 +14,14 @@
 
 ---
 
+# continuous integretion
+
+- Git project > Actions
+- Nodejs template for worflow
+- copy + paste the content of .github/workflows/nodejs.yml for your nodejs projects -> to set-up C.I pipeline
+
+---
+
 # Rules added to protect Portfolio Repo:
 
 - Github Actions added which will check the build process only. It will not restrict the push/PR if the build fails.
@@ -25,6 +33,8 @@
 
 ---
 
+# Bypass git hooks locally and its solution
+
 - Since we can break above local git hooks -> Using the flag --no-verify won’t trigger hooks.
 - Also we cannot go to each user and ask them to configure/add git hooks folder, rather to automate this process :
   - \$ mkdir .githooks
@@ -33,6 +43,38 @@
   - \$ git config core.hooksPath .githooks/ (change the hooks folder to githooks instead of .git/hooks)
   - git hooks are written in shell scripts (but for node u can use husky-> act as wrapper over shell scripts)
   - push this .githooks to your remote repo
-  - Onces the developer takes the latest pull of your remote repo- ask them to execute this commands : git config core.hooksPath .githooks/
+  - Onces the developer takes the latest pull of your remote repo- ask them to execute this commands : git config core.hooksPath .githooks/ (In order to obtain the symbolic linkl b/w both of this direcotries, or rather add this scripts on git-pull/npm install)
 
 ---
+
+# continuous deployment
+
+## AWS CLI Configuration
+
+- Install aws cli locally in ur linux :
+  - \$ cd ~/tejas/other-apps/aws
+  - \$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  - \$ unzip awscliv2.zip
+  - \$ cd aws
+  - \$ sudo ./install
+  - \$ aws --version
+  - \$ which aws
+- To check for aws latest update and update
+  - \$ cd ~/tejas/other-apps/aws
+  - \$ sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update (Update aws cli versio)
+- To configure for aws for specific user/developer
+  - Services > Security, Identity, & Compliance > IAM
+  - Users
+  - Tejas-Dev (Who current have admin access)
+  - Security Credentials
+  - Access Key (tab), If you have not downloaded Secrete access key in your local delete previous entry and create new accessKeys.csv file store in your local.
+  - \$ aws configure
+    - (enter your access key ID and Secret access key)
+    - Default region name: us-east-1 [US East (N. Virginia)]
+    - Default output format: json
+  - \$ aws s3 ls
+
+## Deploying to AWS S3 bucket when event is triggered in GitHub Actions
+
+- Add new workflow aws.yml
+- Github project > Settings > Secrets (tab) > add all AWS Secrets mentioned in aws.yml file like - AWS_S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, etc
