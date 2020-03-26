@@ -18,7 +18,7 @@ jobs:
       - name: Installing all npm dependencies of specific versions using ci
         run: npm ci
 
-      - name: Checking for build prod and AOT..
+      - name: building your dist folder :)
         run: npm run build
 
       - name: Remove previous instance of junks from s3 buckets
