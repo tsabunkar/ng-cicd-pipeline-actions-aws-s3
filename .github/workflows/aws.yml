@@ -16,10 +16,10 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Installing all npm dependencies of specific versions using ci
-      run: npm ci
+        run: npm ci
 
       - name: Checking for build prod and AOT..
-      run: npm run build
+        run: npm run build
 
       - name: Remove previous instance of junks from s3 buckets
         run: aws s3 rm --recursive s3://tsabunkar-portfolio/
