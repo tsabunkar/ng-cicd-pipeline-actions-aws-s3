@@ -4,8 +4,6 @@
 name: CI for Angular
 
 on:
-  push:
-    branches: [master]
   pull_request:
     branches: [master]
 
@@ -61,6 +59,21 @@ jobs:
 
       - name: Let me check your test cases..
         run: npm run test-headless-chrome
+
+on:     
+  push:
+    branches: [master]     
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        node-version: [12.16.1]
+
+    steps:
+      - uses: actions/checkout@v1    
 
       - name: Remove previous instance of junks from s3 buckets
         run: aws s3 rm --recursive s3://tsabunkar-portfolio/
