@@ -20,6 +20,15 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Print a greeting
+        env:
+          MY_VAR: Welcome to my C.I process
+          FIRST_NAME: Tejas
+          MIDDLE_NAME: Shailesh
+          LAST_NAME: Sabunkar
+        run: |
+          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
+
       - name: Cache node modules
         uses: actions/cache@v1
         env:
@@ -50,11 +59,7 @@ jobs:
         run: npm run test-headless-chrome
 
       - name: Deploy to AWS S3 bucket
-        env: 
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
-        run: aws s3 cp dist  s3://tsabunkar-portfolio/ --recursive
-
         env:
-          CI: true
-          CD: true
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 cp dist  s3://tsabunkar-portfolio/ --recursive
