@@ -24,4 +24,15 @@
     - Require status checks to pass before merging (this will ensure All build process in C.I is passed before enabling merging PR button ).
 
 ---
-Changes done by tejassabunkar-> master branch
+
+- Since we can break above local git hooks -> Using the flag --no-verify won’t trigger hooks.
+- Also we cannot go to each user and ask them to configure/add git hooks folder, rather to automate this process :
+  - \$ mkdir .githooks
+  - \$ ls -a .git/hooks/ | grep -v ".sample" (find all the files which doesn't have .sample extension)
+  - (Copy all your hooks file from .git/hooks to .githooks)
+  - \$ git config core.hooksPath .githooks/ (change the hooks folder to githooks instead of .git/hooks)
+  - git hooks are written in shell scripts (but for node u can use husky-> act as wrapper over shell scripts)
+  - push this .githooks to your remote repo
+  - Onces the developer takes the latest pull of your remote repo- ask them to execute this commands : git config core.hooksPath .githooks/
+
+---
