@@ -61,4 +61,4 @@ jobs:
         run: npm run test-headless-chrome
 
     env: # environment variables to all the steps
-    KEY_3: value3
+      KEY_3: value3
