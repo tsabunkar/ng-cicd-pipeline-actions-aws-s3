@@ -4,8 +4,6 @@
 name: CI for Angular
 
 on:
-  push:
-    branches: [master]
   pull_request:
     branches: [master]
 
@@ -61,13 +59,3 @@ jobs:
 
       - name: Let me check your test cases..
         run: npm run test-headless-chrome
-
-      - name: Remove previous instance of junks from s3 buckets
-        run: aws s3 rm --recursive s3://tsabunkar-portfolio/
-
-      - name: Deploy to AWS S3 bucket
-        run: aws s3 cp --recursive dist/portfolio/ s3://tsabunkar-portfolio/ --acl public-read
-
-    env: # environment variables to all the steps
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
